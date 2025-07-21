@@ -4,7 +4,7 @@ const router = express.Router();
 const {
   getSomedata,
   getdatabyid
-} = require('../controllers/UserController');
+} = require('../Controllers/UserController');
 
 router.get('/', getSomedata);
 router.get('/:id', getdatabyid);
