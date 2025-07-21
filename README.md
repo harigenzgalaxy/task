@@ -1,4 +1,4 @@
 # CRM_V1
 
-Client - Frontend
-Server - Backend
+Client - Frontend https://crm-v1-sigma.vercel.app/  \n
+Server - Backend  https://crm-v1-xtjh.vercel.app/
