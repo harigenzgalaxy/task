@@ -1,1 +1,126 @@
-@import "tailwindcss";
+    @import "tailwindcss";
+
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .sx-react-calendar-wrapper {
+      width: 100%;
+      /* max-width: 1200px; */
+      height: 800px;
+      max-height: 90vh;
+    
+      /* Center horizontally */
+      margin-left: auto;
+      margin-right: auto;
+    
+      /* Responsive padding */
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
+
+    @theme{
+      /* Core backgrounds - slightly refined for better depth */
+      --color-background: hsl(240 10% 4%); /* Slightly deeper for better contrast */
+      --color-foreground: hsl(280 5% 96%); /* Slightly brighter text */
+      
+      /* Cards and surfaces - improved layering */
+      --color-card: hsl(240 10% 9%); /* More separation from background */
+      --color-card-foreground: hsl(280 5% 96%);
+      --color-popover: hsl(240 10% 9%);
+      --color-popover-foreground: hsl(280 5% 96%);
+      
+      /* Primary colors - slightly refined saturation */
+      --color-primary: hsl(270 95% 68%); /* Slightly less saturated, more elegant */
+      --color-primary-foreground: hsl(240 10% 4%);
+      
+      /* Secondary and muted - better hierarchy */
+      --color-secondary: hsl(240 12% 16%); /* Slightly more saturated */
+      --color-secondary-foreground: hsl(280 5% 94%);
+      --color-muted: hsl(240 10% 14%); /* Better separation */
+      --color-muted-foreground: hsl(280 5% 68%); /* Slightly more readable */
+      
+      /* Accent - more refined */
+      --color-accent: hsl(270 90% 62%); /* Less aggressive saturation */
+      --color-accent-foreground: hsl(240 10% 4%);
+      
+      --color-destructive: hsl(0 84% 60%);
+      --color-destructive-foreground: hsl(280 5% 96%);
+  
+      /* Borders and inputs - better visibility */
+      --color-border: hsl(240 12% 18%); /* More visible borders */
+      --color-input: hsl(240 10% 16%); /* Better input contrast */
+      --color-ring: hsl(270 95% 68%);
+    
+      --color-radius: hsl(0.75rem);
+  
+      /* Sidebar - enhanced contrast */
+      --color-sidebar-background: hsl(240 12% 2%); /* Deeper for more separation */
+      --color-sidebar-foreground: hsl(280 5% 88%);
+      --color-sidebar-primary: hsl(270 95% 68%);
+      --color-sidebar-primary-foreground: hsl(240 12% 2%);
+      --color-sidebar-accent: hsl(240 12% 11%); /* Better accent visibility */
+      --color-sidebar-accent-foreground: hsl(280 5% 94%);
+      --color-sidebar-border: hsl(240 12% 14%); /* More defined borders */
+      --color-sidebar-ring: hsl(270 95% 68%);
+    
+      /* Custom colors - subtle refinements */
+      --color-purple-glow: hsl(270 95% 68%);
+      --color-purple-deep: hsl(270 90% 48%); /* Slightly less intense */
+      --color-purple-soft: hsl(270 45% 82%); /* More refined soft purple */
+      --color-dark-surface: hsl(240 10% 9%);
+      --color-dark-elevated: hsl(240 12% 14%); /* Better elevation contrast */
+        
+      /* Gradients - more sophisticated */
+      --gradient-primary: linear-gradient(135deg, hsl(270 95% 68%), hsl(270 90% 48%));
+      --gradient-surface: linear-gradient(135deg, hsl(240 10% 9%), hsl(240 12% 14%));
+      --gradient-glow: linear-gradient(90deg, transparent, hsl(270 95% 68% / 0.08), transparent);
+  
+      /* Shadows - more refined */
+      --color-shadow-purple: 0 10px 30px -10px hsl(270 95% 68% / 0.25);
+      --color-shadow-elevated: 0 8px 25px -8px hsl(240 10% 0% / 0.5);
+      --color-transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+        .bg-gradient-primary {
+            background: var(--gradient-primary);
+          }
+        .bg-gradient-surface {
+            background: var(--gradient-surface);
+          }
+        .bg-gradient-glow {
+            background: var(--gradient-glow);
+          }
+          
+
+
+          input::placeholder {
+            color: hsl(var(--muted-foreground));
+          }
+
+
+          .gradient-text {
+            @apply bg-[var(--gradient-primary)] bg-clip-text text-transparent;
+          }
+          
+
+/* Strong manual override for ScheduleX styles */
+/* .sx__calendar :is(.fc, .fc-view, .fc-scrollgrid, .fc-timegrid, .fc-daygrid, .fc-view-harness) {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+.sx__calendar :is(.fc-daygrid-day-number, .fc-col-header-cell-cushion, .fc-toolbar-title) {
+  color: #000000 !important;
+}
+
+.sx__calendar .fc-scrollgrid td {
+  border-color: #e5e7eb !important;
+} */
+
+
+.sx__month-grid-day__header-date {
+  position: relative;
+  cursor: pointer;
+}
+

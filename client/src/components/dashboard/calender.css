@@ -1,0 +1,412 @@
+
+.sx-react-calendar-wrapper,
+.sx-react-calendar-wrapper .sx-calendar,
+.sx-calendar-wrapper,
+.sx__calendar-wrapper {
+  background-color: #111827 !important;
+  color: #ffffff !important;
+  border: 1px solid #374151 !important;
+  border-radius: 0.5rem !important;
+}
+
+.sx__calendar {
+  background-color: #111827 !important;
+  color: #ffffff !important;
+}
+
+.sx__calendar-header,
+.sx__date-picker,
+.sx__calendar-header-content {
+  background-color: #1f2937 !important;
+  color: #ffffff !important;
+  border-bottom: 1px solid #374151 !important;
+}
+
+.sx__calendar-header button,
+.sx__date-picker-previous-month,
+.sx__date-picker-next-month,
+.sx__calendar-header .sx__button {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 0.375rem !important;
+  padding: 0.5rem !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.sx__calendar-header button:hover,
+.sx__date-picker-previous-month:hover,
+.sx__date-picker-next-month:hover {
+  background-color: #9333ea !important;
+  color: #ffffff !important;
+}
+
+.sx__date-picker-month-year-display,
+.sx__calendar-header h2 {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  background-color: transparent !important;
+}
+
+.sx__view-selection,
+.sx__view-selection-item {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+  border: 1px solid #4b5563 !important;
+  border-radius: 0.375rem !important;
+  margin: 0 2px !important;
+}
+
+.sx__view-selection-item--active,
+.sx__view-selection-item.sx__view-selection-item--active {
+  background-color: #9333ea !important;
+  border-color: #a855f7 !important;
+  color: #ffffff !important;
+}
+
+.sx__view-selection-item:hover {
+  background-color: #9333ea !important;
+  border-color: #a855f7 !important;
+  color: #ffffff !important;
+}
+
+.sx__month-grid-wrapper,
+.sx__month-grid {
+  background-color: #111827 !important;
+  border: 1px solid #374151 !important;
+}
+
+.sx__month-grid-day-header,
+.sx__week-day-header {
+  background-color: #111827 !important;
+  color: #ffffff !important;
+  border-bottom: 1px solid #374151 !important;
+  border-right: 1px solid #374151 !important;
+  padding: 0.75rem 0 !important;
+  font-weight: 600 !important;
+}
+
+.sx__month-grid-day,
+.sx__day-boundary {
+  background-color: #111827 !important;
+  border: 1px solid #374151 !important;
+  color: #ffffff !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.sx__month-grid-day:hover {
+  background-color: #1f2937 !important;
+}
+
+/* Today's date */
+.sx__month-grid-day--is-today,
+.sx__month-grid-day.sx__month-grid-day--is-today {
+  background-color: #9333ea !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.sx__month-grid-day--is-today .sx__month-grid-day-number,
+.sx__month-grid-day--is-today .sx__month-grid-day-header-date-number {
+  color: #ffffff !important;
+  font-size: 1.25rem !important; /* 20px - even bigger for today */
+  font-weight: 700 !important;
+}
+
+.sx__month-grid-day--is-leading,
+.sx__month-grid-day--is-trailing {
+  color: #6b7280 !important;
+  background-color: #0f172a !important;
+}
+
+/* Date numbers */
+.sx__month-grid-day-header-date,
+.sx__month-grid-day-header-date-number,
+.sx__month-grid-day-number {
+  color: #ffffff !important;
+  background-color: transparent !important;
+  font-size: 1.125rem !important; /* 18px - bigger font size */
+  font-weight: 600 !important;
+}
+
+/* Week View */
+.sx__week-wrapper,
+.sx__week-grid {
+  background-color: #111827 !important;
+  border: 1px solid #374151 !important;
+}
+
+/* Time axis (left sidebar with hours) */
+.sx__time-axis,
+.sx__time-axis-hour {
+  background-color: #1f2937 !important;
+  border-right: 1px solid #374151 !important;
+  color: #d1d5db !important;
+}
+
+.sx__time-axis-hour-text {
+  color: #d1d5db !important;
+}
+
+/* Day columns in week view */
+.sx__week-grid-day {
+  background-color: #111827 !important;
+  border-right: 1px solid #374151 !important;
+}
+
+/* Hour lines */
+.sx__time-grid-hour,
+.sx__week-grid-hour {
+  border-bottom: 1px solid #374151 !important;
+}
+
+/* Events - Main styling */
+.sx__event,
+.sx__month-grid-event,
+.sx__time-grid-event {
+  background-color: #9333ea !important;
+  color: #ffffff !important;
+  border: 1px solid #a855f7 !important;
+  border-radius: 0.375rem !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.2s ease !important;
+  padding: 4px 8px !important;
+}
+
+.sx__event:hover,
+.sx__month-grid-event:hover,
+.sx__time-grid-event:hover {
+  background-color: #a855f7 !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Event titles */
+.sx__event-title,
+.sx__month-grid-event-title,
+.sx__time-grid-event-title {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+}
+
+/* Day View */
+.sx__day-wrapper {
+  background-color: #111827 !important;
+  border: 1px solid #374151 !important;
+}
+
+/* Current time indicator */
+.sx__current-time-indicator {
+  background-color: #a855f7 !important;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5) !important;
+  z-index: 10 !important;
+}
+
+/* Modal/Popover styling */
+.sx__event-modal,
+.sx__event-modal-wrapper {
+  background-color: #1f2937 !important;
+  color: #ffffff !important;
+  border: 1px solid #4b5563 !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Form elements in modals */
+.sx__event-modal input,
+.sx__event-modal textarea,
+.sx__event-modal select {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+  border: 1px solid #4b5563 !important;
+  border-radius: 0.375rem !important;
+  padding: 0.5rem !important;
+}
+
+.sx__event-modal input:focus,
+.sx__event-modal textarea:focus,
+.sx__event-modal select:focus {
+  border-color: #a855f7 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.5) !important;
+}
+
+/* Modal buttons */
+.sx__event-modal button,
+.sx__event-modal .sx__button {
+  background-color: #9333ea !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0.375rem !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.sx__event-modal button:hover,
+.sx__event-modal .sx__button:hover {
+  background-color: #a855f7 !important;
+}
+
+/* Scrollbar styling */
+.sx__calendar::-webkit-scrollbar,
+.sx__week-wrapper::-webkit-scrollbar,
+.sx__day-wrapper::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.sx__calendar::-webkit-scrollbar-track,
+.sx__week-wrapper::-webkit-scrollbar-track,
+.sx__day-wrapper::-webkit-scrollbar-track {
+  background-color: #1f2937 !important;
+  border-radius: 9999px !important;
+}
+
+.sx__calendar::-webkit-scrollbar-thumb,
+.sx__week-wrapper::-webkit-scrollbar-thumb,
+.sx__day-wrapper::-webkit-scrollbar-thumb {
+  background-color: #9333ea !important;
+  border-radius: 9999px !important;
+}
+
+.sx__calendar::-webkit-scrollbar-thumb:hover,
+.sx__week-wrapper::-webkit-scrollbar-thumb:hover,
+.sx__day-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #a855f7 !important;
+}
+
+/* Loading states */
+.sx__loading {
+  color: #9ca3af !important;
+}
+
+/* Additional overrides for stubborn elements */
+.sx-react-calendar-wrapper * {
+  box-sizing: border-box;
+}
+
+/* Force background on any remaining white elements */
+.sx__calendar .sx__calendar-header,
+.sx__calendar .sx__month-grid,
+.sx__calendar .sx__week-grid,
+.sx__calendar .sx__day-grid {
+  background-color: #111827 !important;
+}
+
+/* Fix for date picker dropdown/popover */
+.sx__date-picker-popup,
+.sx__date-picker-dropdown,
+.sx__calendar-popup {
+  background-color: #1f2937 !important;
+  border: 1px solid #374151 !important;
+  color: #ffffff !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Date picker input field */
+.sx__date-picker-input,
+.sx__date-input-field {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+  border: 1px solid #4b5563 !important;
+  border-radius: 0.375rem !important;
+  padding: 0.5rem !important;
+}
+
+/* Date picker calendar grid */
+.sx__date-picker-calendar,
+.sx__date-picker-month-grid {
+  background-color: #1f2937 !important;
+  color: #ffffff !important;
+}
+
+/* Date picker individual dates */
+.sx__date-picker-day,
+.sx__date-picker-date {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  border-radius: 0.25rem !important;
+  padding: 0.5rem !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.sx__date-picker-day:hover,
+.sx__date-picker-date:hover {
+  background-color: #374151 !important;
+}
+
+.sx__date-picker-day--selected,
+.sx__date-picker-date--selected {
+  background-color: #9333ea !important;
+  color: #ffffff !important;
+}
+
+.sx__date-picker-day--today,
+.sx__date-picker-date--today {
+  background-color: #9333ea !important;
+  color: #ffffff !important;
+  font-weight: bold !important;
+}
+
+/* Week/day headers in the main grid */
+.sx__week-day-name,
+.sx__day-name {
+  color: #ffffff !important;
+  background-color: #111827 !important;
+}
+
+/* Any remaining white backgrounds */
+.sx__calendar-content,
+.sx__calendar-body,
+.sx__calendar-main {
+  background-color: #111827 !important;
+  color: #ffffff !important;
+}
+
+/* Additional fixes for dropdown hover states */
+.sx__view-selection button,
+.sx__calendar-view-button,
+.sx__dropdown-button {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+  border: 1px solid #4b5563 !important;
+  border-radius: 0.375rem !important;
+  transition: all 0.2s ease !important;
+}
+
+.sx__view-selection button:hover,
+.sx__calendar-view-button:hover,
+.sx__dropdown-button:hover {
+  background-color: #9333ea !important;
+  border-color: #a855f7 !important;
+  color: #ffffff !important;
+}
+
+/* Force text color on all interactive elements */
+.sx__view-selection *,
+.sx__calendar-view-button *,
+.sx__dropdown-button * {
+  color: #ffffff !important;
+}
+
+/* Month grid day content styling */
+.sx__month-grid-day-content {
+  padding: 0.5rem !important;
+}
+
+/* Date cell styling improvements */
+.sx__month-grid-day {
+  background-color: #111827 !important;
+  border: 1px solid #374151 !important;
+  color: #ffffff !important;
+  transition: background-color 0.2s ease !important;
+  min-height: 80px !important; /* Give more space for bigger numbers */
+}
+
+.sx__view-selection-selected-item:hover {
+    background-color: #9333ea !important;
+    color: #ffffff !important;
+  }
+ 
