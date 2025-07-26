@@ -1,0 +1,21 @@
+/* Sidebar hover expansion - only for desktop screens */
+@media (min-width: 768px) {
+  .sidebar-hover-expand {
+    transition: width 0.3s ease;
+  }
+  
+  .sidebar-hover-expand:hover {
+    width: 16rem !important; /* w-64 */
+  }
+}
+
+/* Ensure mobile behavior is unchanged */
+@media (max-width: 767px) {
+  .sidebar-hover-expand {
+    transition: none;
+  }
+  
+  .sidebar-hover-expand:hover {
+    width: inherit !important;
+  }
+} 

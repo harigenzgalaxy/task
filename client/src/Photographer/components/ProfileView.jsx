@@ -27,8 +27,6 @@ import { Label } from "../../components/ui/Label"
 import { Textarea } from "../../components/ui/textarea"
 import { Switch } from "../../components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select"
-
-
 function Modal({ open, onClose, children }) {
   if (!open) return null;
   return (
