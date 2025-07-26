@@ -1,8 +1,11 @@
 import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import { Menu } from "lucide-react";
-import { StudioOwnerDashboard } from "./components/Dashboard";
+// import  Dashboard  from "./components/Dashboard";
+import Dashboard from "./components/Dashboard";
 import ClientsOverview from "./components/Client";
+import { MyEventsPage } from "./components/MyEvents";
+import { LeadSpacePage } from "./components/Lead";
 
 const Studio = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -11,9 +14,13 @@ const Studio = () => {
   const renderContent = () => {
     switch (activeTab) {
       case "dashboard":
-        return <StudioOwnerDashboard />;
+        return <Dashboard />;
       case "clients":
         return <ClientsOverview />;
+      case "myevents":
+        return <MyEventsPage />;
+      case "leads":
+        return <LeadSpacePage />;
       default:
         return <h1 className="text-2xl font-bold capitalize">{activeTab}</h1>;
     }
