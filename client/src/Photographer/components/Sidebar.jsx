@@ -10,8 +10,6 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
-import { useState } from 'react';
-import './Sidebar.css';
 
 function cn(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -26,22 +24,14 @@ const menuItems = [
 ];
 
 export const Sidebar = ({ activeTab, onTabChange, mobileOpen, onClose, collapsed, onToggleCollapse }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  // For desktop: show expanded on hover when collapsed, otherwise use collapsed state
-  // For mobile: always use the collapsed prop as before
-  const isExpanded = collapsed ? isHovered : true;
-
   return (
 
     <div
       className={cn(
-        "fixed top-0 h-screen bg-[#1b0f29] lg:bg-sidebar border-r border-sidebar-border z-40 transition-all duration-300 lg:translate-x-0 lg:static sidebar-hover-expand",
+        "fixed top-0 h-screen bg-[#1b0f29] lg:bg-sidebar border-r border-sidebar-border z-40 transition-all duration-300 lg:translate-x-0 lg:static",
         mobileOpen ? "translate-x-0" : "-translate-x-full",
-        collapsed && !isHovered ? "w-20" : "w-64"
+        collapsed ? "w-20" : "w-64"
       )}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
 
       <div className="flex flex-col h-full">
@@ -50,7 +40,7 @@ export const Sidebar = ({ activeTab, onTabChange, mobileOpen, onClose, collapsed
             <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
               <Camera className="w-5 h-5 text-sidebar-primary-foreground" />
             </div>
-            {isExpanded && (
+            {!collapsed && (
               <div>
                 <h1 className="text-lg font-semibold text-sidebar-foreground">PhotoStudio</h1>
                 <p className="text-xs text-muted-foreground">Dashboard</p>
@@ -63,7 +53,7 @@ export const Sidebar = ({ activeTab, onTabChange, mobileOpen, onClose, collapsed
               className="text-muted-foreground hover:text-primary transition-colors"
               aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
-              {/* {collapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />} */}
+              {collapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
             </button>
             <button
               onClick={onClose}
@@ -87,7 +77,7 @@ export const Sidebar = ({ activeTab, onTabChange, mobileOpen, onClose, collapsed
                       "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all duration-200",
                       "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                       isActive && "bg-sidebar-accent text-primary shadow-purple",
-                      !isExpanded && "justify-center px-2"
+                      collapsed && "justify-center px-2"
                     )}
                   >
                     <Icon
@@ -96,7 +86,7 @@ export const Sidebar = ({ activeTab, onTabChange, mobileOpen, onClose, collapsed
                         isActive ? "text-primary" : "text-muted-foreground"
                       )}
                     />
-                    {isExpanded && (
+                    {!collapsed && (
                       <span
                         className={cn(
                           "font-medium transition-colors",
@@ -113,9 +103,9 @@ export const Sidebar = ({ activeTab, onTabChange, mobileOpen, onClose, collapsed
           </ul>
         </nav>
 
-        <div className={cn("flex items-center gap-4 p-4 border-t transition-all duration-300", !isExpanded && "justify-center")}> 
+        <div className={cn("flex items-center gap-4 p-4 border-t transition-all duration-300", collapsed && "justify-center")}> 
           <img src="https://randomuser.me/api/portraits/men/32.jpg" className="w-10 h-10 rounded-full" alt="Profile" />
-          {isExpanded && (
+          {!collapsed && (
             <>
               <div className="flex-1">
                 <p className="text-sm font-bold font- text-accent ">John Doe</p>
