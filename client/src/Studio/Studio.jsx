@@ -6,21 +6,29 @@ import Dashboard from "./components/Dashboard";
 import ClientsOverview from "./components/Client";
 import { MyEventsPage } from "./components/MyEvents";
 import { LeadSpacePage } from "./components/Lead";
+import StudioProfile from "./components/StudioProfile";
+import StudioSettings from "./components/StudioSettings";
+import Discover from "./components/Discover";
 
 const Studio = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [mobileOpen, setMobileOpen] = useState(false);
-
   const renderContent = () => {
     switch (activeTab) {
       case "dashboard":
-        return <Dashboard />;
+        return <Dashboard onTabChange={setActiveTab} />;
       case "clients":
         return <ClientsOverview />;
       case "myevents":
         return <MyEventsPage />;
       case "leads":
         return <LeadSpacePage />;
+      case "profile":
+        return <StudioProfile />
+      case "settings":
+        return <StudioSettings />
+      case "discover":
+        return <Discover/>
       default:
         return <h1 className="text-2xl font-bold capitalize">{activeTab}</h1>;
     }

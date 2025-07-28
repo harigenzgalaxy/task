@@ -124,3 +124,32 @@
   cursor: pointer;
 }
 
+/* Globally override Radix SelectItem hover highlight */
+[data-highlighted] {
+  background-color: #374151 !important; /* Tailwind's bg-gray-700 */
+  color: white !important;
+}
+
+Override Command component hover states
+[data-slot="command-item"]:hover {
+  background-color: #7c3aed !important; /* Tailwind's bg-purple-700 - darker for better contrast */
+  color: white !important;
+}
+
+[data-slot="command-item"][data-selected="true"] {
+  background-color: #7c3aed !important; /* Tailwind's bg-purple-700 */
+  color: white !important;
+}
+
+/* Additional override for cmdk items */
+.cmdk-item:hover {
+  background-color: #7c3aed !important;
+  color: white !important;
+}
+
+/* Force override for any command item hover */
+[role="option"]:hover,
+[data-radix-collection-item]:hover {
+  background-color: #7c3aed !important;
+  color: white !important;
+}

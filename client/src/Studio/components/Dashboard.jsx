@@ -129,7 +129,7 @@ const calendarEvents = [
   },
 ]
 
-export default function Dashboard() {
+export default function Dashboard({ onTabChange }) {
   const [activeStatTab, setActiveStatTab] = useState("profile")
   const [calendarView, setCalendarView] = useState("month")
   const [currentCalendarDate, setCurrentCalendarDate] = useState(new Date())
@@ -159,6 +159,10 @@ export default function Dashboard() {
   const toggleCheck = (id) => {
     setCheckedItems((prev) => ({ ...prev, [id]: !prev[id] }))
   }
+  const handleTabChange = (tabName) => {
+    setActiveTab(tabName);
+  };
+  
 
   const recentActivities = [
     {
@@ -322,7 +326,6 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-black">
       <div className="p-4 md:p-6 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between relative">
@@ -344,7 +347,7 @@ export default function Dashboard() {
           </div>
           <div className="flex items-center gap-4 relative">
             {/* Notification Bell */}
-            <div className="relative">
+            <div className="relative overflow-visible">
               <Button
                 variant="outline"
                 size="icon"
@@ -360,9 +363,9 @@ export default function Dashboard() {
               </Button>
               {/* Notification Dropdown */}
               {showNotifications && (
-                <div className="absolute right-0 mt-2 w-64 bg-gray-900 border border-gray-700 rounded-lg shadow-lg z-50 animate-fade-in">
+                <div className="absolute right-0 top-full mt-2 w-64 bg-gray-900 border border-gray-700 rounded-lg shadow-lg z-[60] animate-fade-in overflow-hidden">
                   <div className="p-4 border-b border-gray-700 font-semibold text-purple-400">Notifications</div>
-                  <ul className="divide-y divide-gray-700">
+                  <ul className="divide-y divide-gray-700 max-h-64 overflow-y-auto">
                     <li className="p-3 text-gray-200 hover:bg-gray-800 cursor-pointer">New booking: Sarah & Mike Wedding</li>
                     <li className="p-3 text-gray-200 hover:bg-gray-800 cursor-pointer">Payment received from Johnson Family</li>
                     <li className="p-3 text-gray-200 hover:bg-gray-800 cursor-pointer">Event reminder: Corporate Headshots</li>
@@ -372,7 +375,7 @@ export default function Dashboard() {
               )}
             </div>
             {/* Profile Avatar */}
-            <div className="relative">
+            <div className="relative overflow-visible">
               <Avatar className="h-10 w-10 cursor-pointer" onClick={() => {
                 setShowProfileMenu((prev) => !prev)
                 setShowNotifications(false)
@@ -380,12 +383,21 @@ export default function Dashboard() {
                 <AvatarImage src="/placeholder.svg?height=40&width=40" />
                 <AvatarFallback className="bg-purple-600 text-white">AK</AvatarFallback>
               </Avatar>
-              {/* Profile Dropdown */}
               {showProfileMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-lg z-50 animate-fade-in">
+                <div className="absolute right-0 top-full mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-lg z-[60] animate-fade-in overflow-hidden">
                   <ul className="divide-y divide-gray-700">
-                    <li className="p-3 text-gray-200 hover:bg-gray-800 cursor-pointer">Profile</li>
-                    <li className="p-3 text-gray-200 hover:bg-gray-800 cursor-pointer">Settings</li>
+                    <li 
+                      onClick={() => {
+                        onTabChange("profile")
+                        setShowProfileMenu(false)
+                      }}
+                      className="p-3 text-gray-200 hover:bg-gray-800 cursor-pointer">Profile</li>
+                    <li 
+                      onClick={() => {
+                        onTabChange("settings")
+                        setShowProfileMenu(false)
+                      }}
+                      className="p-3 text-gray-200 hover:bg-gray-800 cursor-pointer">Settings</li>
                     <li className="p-3 text-red-400 hover:bg-gray-800 cursor-pointer">Logout</li>
                   </ul>
                 </div>
@@ -420,7 +432,7 @@ export default function Dashboard() {
                 </div>
                 <div className="mt-3 h-2 bg-gray-700 rounded-full overflow-hidden">
                   <div
-                    className={`h-full w-3/4 rounded-full ${
+                    className={`h-full w-3/4 rounded-full transition-all duration-300 ${
                       activeStatTab === "profile" ? "bg-purple-500" : "bg-gray-600"
                     }`}
                   ></div>
@@ -446,8 +458,15 @@ export default function Dashboard() {
                   3
                 </div>
                 <p className="text-xs text-gray-400 mt-1">2 this week</p>
-                <div className="mt-3">
-                  <Progress value={65} className={`h-2 ${activeStatTab === "events" ? "[&>div]:bg-purple-500" : ""}`} />
+                <div className="mt-3 w-full">
+                  <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+                    <div 
+                      className={`h-full rounded-full transition-all duration-300 ${
+                        activeStatTab === "events" ? "bg-purple-500" : "bg-gray-600"
+                      }`}
+                      style={{ width: '65%', maxWidth: '100%' }}
+                    ></div>
+                  </div>
                   <p className="text-xs text-gray-400 mt-1">65% completed</p>
                 </div>
               </CardContent>
@@ -469,14 +488,16 @@ export default function Dashboard() {
                 />
               </CardHeader>
               <CardContent>
-                <div
-                  className={`text-3xl font-bold ${activeStatTab === "earnings" ? "text-purple-300" : "text-white"}`}
-                >
-                  $12,450
-                </div>
-                <div className="flex items-center text-xs text-green-400 mt-2">
-                  <TrendingUp className="h-3 w-3 mr-1" />
-                  +8.2% from last month
+                <div className="space-y-2">
+                  <div
+                    className={`text-3xl font-bold ${activeStatTab === "earnings" ? "text-purple-300" : "text-white"}`}
+                  >
+                    $12,450
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-green-400">
+                    <TrendingUp className="h-3 w-3 flex-shrink-0" />
+                    <span className="whitespace-nowrap">+8.2% from last month</span>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -524,7 +545,7 @@ export default function Dashboard() {
                           key={view}
                           variant="ghost"
                           size="sm"
-                          className={`px-3 py-1 text-xs ${
+                          className={`px-3 py-1 text-xs transition-all duration-200 ${
                             calendarView === view
                               ? "bg-purple-600 text-white"
                               : "text-gray-400 hover:text-white hover:bg-gray-700"
@@ -538,7 +559,7 @@ export default function Dashboard() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="bg-transparent border-gray-600 text-gray-300 hover:bg-gray-800"
+                      className="bg-transparent border-gray-600 text-gray-300 hover:bg-gray-800 transition-all duration-200"
                     >
                       <Plus className="h-4 w-4 mr-2" />
                       Add Event
@@ -556,7 +577,7 @@ export default function Dashboard() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="text-gray-400 hover:text-white hover:bg-gray-800"
+                      className="text-gray-400 hover:text-white hover:bg-gray-800 transition-all duration-200"
                       onClick={goToPreviousMonth}
                     >
                       <ChevronLeft className="h-4 w-4" />
@@ -564,7 +585,7 @@ export default function Dashboard() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="text-gray-400 hover:text-white hover:bg-gray-800"
+                      className="text-gray-400 hover:text-white hover:bg-gray-800 transition-all duration-200"
                       onClick={goToNextMonth}
                     >
                       <ChevronRight className="h-4 w-4" />
@@ -600,7 +621,7 @@ export default function Dashboard() {
                       return (
                         <div
                           key={day}
-                          className={`h-24 p-2 border border-gray-700 rounded-lg transition-colors hover:border-purple-500 cursor-pointer ${
+                          className={`h-24 p-2 border border-gray-700 rounded-lg transition-all duration-200 hover:border-purple-500 cursor-pointer ${
                             todayClass
                               ? "bg-purple-600/20 border-purple-500"
                               : hasEvents
@@ -737,7 +758,6 @@ export default function Dashboard() {
               </CardContent>
             </Card>
           </div>
-        </div>
       </div>
       <style>{`
         @keyframes fadeInUp {
@@ -749,6 +769,21 @@ export default function Dashboard() {
             opacity: 1;
             transform: translateY(0);
           }
+        }
+        
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-fade-in {
+          animation: fadeIn 0.2s ease-out forwards;
         }
       `}</style>
     </div>

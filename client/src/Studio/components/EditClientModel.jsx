@@ -1,6 +1,6 @@
 
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -15,8 +15,7 @@ import { Label } from "@/components/ui/Label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 
-
-export function AddClientModal({ open, onOpenChange, onSubmit }) {
+export function EditClientModal({ client, open, onOpenChange, onSubmit }) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -30,24 +29,30 @@ export function AddClientModal({ open, onOpenChange, onSubmit }) {
     budget: "",
   })
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (client) {
+      setFormData({
+        firstName: client.firstName,
+        lastName: client.lastName,
+        email: client.email,
+        phone: client.phone,
+        company: client.company || "",
+        eventName: client.eventName || "",
+        eventDate: client.eventDate || "",
+        eventType: client.eventType || "",
+        photographers: client.photographers || 1,
+        budget: client.budget?.toString() || "",
+      })
+    }
+  }, [client])
+
+    const handleSubmit = (e) => {
     e.preventDefault()
     onSubmit({
+      ...client,
       ...formData,
       photographers: Number(formData.photographers),
       budget: formData.budget ? Number(formData.budget) : undefined,
-    })
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      company: "",
-      eventName: "",
-      eventDate: "",
-      eventType: "",
-      photographers: 1,
-      budget: "",
     })
   }
 
@@ -55,8 +60,8 @@ export function AddClientModal({ open, onOpenChange, onSubmit }) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle className="text-purple-600">Add New Client</DialogTitle>
-          <DialogDescription>Enter the client details to add them to your database.</DialogDescription>
+          <DialogTitle className="text-purple-600">Edit Client</DialogTitle>
+          <DialogDescription>Update the client details below.</DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
@@ -174,7 +179,7 @@ export function AddClientModal({ open, onOpenChange, onSubmit }) {
               Cancel
             </Button>
             <Button type="submit" className="bg-purple-600 hover:bg-purple-700">
-              Add Client
+              Update Client
             </Button>
           </DialogFooter>
         </form>

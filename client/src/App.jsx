@@ -9,6 +9,7 @@ import HomePage from './Photographer/Index'
 import Sidebar from './Studio/components/Sidebar'
 import ProfileView from './Photographer/components/ProfileView'
 import EventDetails from './Photographer/components/ViewEvent'
+import {ViewEvent} from './Studio/components/ViewEvent'
 import { Home } from 'lucide-react'
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/customer' element={<Customer />} />
         <Route path='/photohome' element={<HomePage />} />
         <Route path='/studiohome' element={<Studio />} />
+        <Route path='/studio/events/:id' element={<ViewEvent />} />
         <Route path='/events/:id' element={<EventDetails/>} />
         <Route path='/test' element={<ProfileView />} />
         <Route path='*' element={<h1>404 Not Found</h1>} />
