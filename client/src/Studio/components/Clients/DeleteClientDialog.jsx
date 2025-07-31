@@ -18,7 +18,7 @@ import {
 export function DeleteClientDialog({ client, open, onOpenChange, onConfirm }) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent>
+      <AlertDialogContent className="bg-gray-900 border-gray-800 text-white">
         <AlertDialogHeader>
           <AlertDialogTitle>Delete Client</AlertDialogTitle>
           <AlertDialogDescription>
@@ -31,7 +31,7 @@ export function DeleteClientDialog({ client, open, onOpenChange, onConfirm }) {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="text-white hover:text-white ">Cancel</AlertDialogCancel>
           <AlertDialogAction onClick={onConfirm} className="bg-destructive hover:bg-destructive/90">
             Delete Client
           </AlertDialogAction>

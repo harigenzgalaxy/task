@@ -86,7 +86,7 @@ const budgetRanges = [
 
 const statusOptions = ["Planned", "Ongoing", "Completed"]
 
-// Searchable Select Component
+
 function SearchableSelect({
   options,
   placeholder = "Select option...",

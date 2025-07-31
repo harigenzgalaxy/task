@@ -20,7 +20,7 @@ export function EventCard({ event }) {
   }
 
   return (
-    <Card className="border-gray-800 bg-gray-950/50 hover:bg-gray-950/70 transition-all hover:border-purple-600/30">
+    <Card className="border-gray-800 bg-gray-900 hover:bg-gray-930 transition-all hover:border-purple-600/30">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="space-y-1">

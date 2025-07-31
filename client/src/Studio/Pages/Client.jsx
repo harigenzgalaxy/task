@@ -36,6 +36,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 import { useEffect } from "react"
 
+import { AddClientModal } from "../components/Clients/AddClientModel"
+import { EditClientModal } from "../components/Clients/EditClientModel"
+import { DeleteClientDialog } from "../components/Clients/DeleteClientDialog"
+
+
 
 
 const mockClients = [
@@ -85,475 +90,475 @@ const mockClients = [
 // Add Client Modal Component
 
 
-function AddClientModal({ open, onOpenChange, onSubmit }) {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    company: "",
-    eventName: "",
-    eventDate: "",
-    eventType: "",
-    photographers: 1,
-    budget: "",
-  })
+// function AddClientModal({ open, onOpenChange, onSubmit }) {
+//   const [formData, setFormData] = useState({
+//     firstName: "",
+//     lastName: "",
+//     email: "",
+//     phone: "",
+//     company: "",
+//     eventName: "",
+//     eventDate: "",
+//     eventType: "",
+//     photographers: 1,
+//     budget: "",
+//   })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    onSubmit({
-      ...formData,
-      photographers: Number(formData.photographers),
-      budget: formData.budget ? Number(formData.budget) : undefined,
-    })
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      company: "",
-      eventName: "",
-      eventDate: "",
-      eventType: "",
-      photographers: 1,
-      budget: "",
-    })
-  }
+//   const handleSubmit = (e) => {
+//     e.preventDefault()
+//     onSubmit({
+//       ...formData,
+//       photographers: Number(formData.photographers),
+//       budget: formData.budget ? Number(formData.budget) : undefined,
+//     })
+//     setFormData({
+//       firstName: "",
+//       lastName: "",
+//       email: "",
+//       phone: "",
+//       company: "",
+//       eventName: "",
+//       eventDate: "",
+//       eventType: "",
+//       photographers: 1,
+//       budget: "",
+//     })
+//   }
 
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] bg-[#1C1124] border-[#2A133F]">
-      <DialogClose asChild>
-      <button
-        className="absolute right-4 top-4 text-gray-400 hover:text-white transition"
-        aria-label="Close"
-      >
-        <X className="h-5 w-5" />
-      </button>
-    </DialogClose>
-        <DialogHeader>
-          <DialogTitle className="text-[#A259FF] text-xl">Add New Client</DialogTitle>
-          <DialogDescription className="text-gray-400">
-            Enter the client details to add them to your database.
-          </DialogDescription>
+//   return (
+//     <Dialog open={open} onOpenChange={onOpenChange}>
+//       <DialogContent className="sm:max-w-[500px] bg-[#1C1124] border-[#2A133F]">
+//       <DialogClose asChild>
+//       <button
+//         className="absolute right-4 top-4 text-gray-400 hover:text-white transition"
+//         aria-label="Close"
+//       >
+//         <X className="h-5 w-5" />
+//       </button>
+//     </DialogClose>
+//         <DialogHeader>
+//           <DialogTitle className="text-[#A259FF] text-xl">Add New Client</DialogTitle>
+//           <DialogDescription className="text-gray-400">
+//             Enter the client details to add them to your database.
+//           </DialogDescription>
     
-        </DialogHeader>
-        <form onSubmit={handleSubmit}>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="firstName" className="text-[#F1F1F1]">
-                  First Name *
-                </Label>
-                <Input
-                  id="firstName"
-                  value={formData.firstName}
-                  onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                  required
-                  className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="lastName" className="text-[#F1F1F1]">
-                  Last Name *
-                </Label>
-                <Input
-                  id="lastName"
-                  value={formData.lastName}
-                  onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                  required
-                  className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-                />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-[#F1F1F1]">
-                Email *
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
-                className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="text-[#F1F1F1]">
-                  Phone Number *
-                </Label>
-                <Input
-                  id="phone"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  required
-                  className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="company" className="text-[#F1F1F1]">
-                  Company
-                </Label>
-                <Input
-                  id="company"
-                  value={formData.company}
-                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-                />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="eventName" className="text-[#F1F1F1]">
-                Event Name
-              </Label>
-              <Input
-                id="eventName"
-                value={formData.eventName}
-                onChange={(e) => setFormData({ ...formData, eventName: e.target.value })}
-                className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="eventDate" className="text-[#F1F1F1]">
-                  Event Date
-                </Label>
-                <Input
-                  id="eventDate"
-                  type="date"
-                  value={formData.eventDate}
-                  onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
-                  className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="eventType" className="text-[#F1F1F1]">
-                  Event Type
-                </Label>
-                <Select
-                  value={formData.eventType}
-                  onValueChange={(value) => setFormData({ ...formData, eventType: value })}
-                >
-                  <SelectTrigger className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1]">
-                    <SelectValue placeholder="Select type" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[#1C1124] border-[#2A133F]">
-                    <SelectItem value="Wedding" className="text-[#F1F1F1] focus:bg-[#2A133F]">
-                      Wedding
-                    </SelectItem>
-                    <SelectItem value="Corporate" className="text-[#F1F1F1] focus:bg-[#2A133F]">
-                      Corporate
-                    </SelectItem>
-                    <SelectItem value="Portrait" className="text-[#F1F1F1] focus:bg-[#2A133F]">
-                      Portrait
-                    </SelectItem>
-                    <SelectItem value="Event" className="text-[#F1F1F1] focus:bg-[#2A133F]">
-                      Event
-                    </SelectItem>
-                    <SelectItem value="Product" className="text-[#F1F1F1] focus:bg-[#2A133F]">
-                      Product
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="photographers" className="text-[#F1F1F1]">
-                  Number of Photographers
-                </Label>
-                <Input
-                  id="photographers"
-                  type="number"
-                  min="1"
-                  value={formData.photographers}
-                  onChange={(e) => setFormData({ ...formData, photographers: Number(e.target.value) })}
-                  className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="budget" className="text-[#F1F1F1]">
-                  Budget (Optional)
-                </Label>
-                <Input
-                  id="budget"
-                  type="number"
-                  placeholder="0"
-                  value={formData.budget}
-                  onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                  className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-                />
-              </div>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => onOpenChange(false)}
-              className="border-gray-700 text-g   ray-300 hover:bg-gray-700 hover:text-white"
-            >
-              Cancel
-            </Button>
-            <Button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white">
-              Add Client
-            </Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
-  )
-}
+//         </DialogHeader>
+//         <form onSubmit={handleSubmit}>
+//           <div className="grid gap-4 py-4">
+//             <div className="grid grid-cols-2 gap-4">
+//               <div className="space-y-2">
+//                 <Label htmlFor="firstName" className="text-[#F1F1F1]">
+//                   First Name *
+//                 </Label>
+//                 <Input
+//                   id="firstName"
+//                   value={formData.firstName}
+//                   onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+//                   required
+//                   className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//                 />
+//               </div>
+//               <div className="space-y-2">
+//                 <Label htmlFor="lastName" className="text-[#F1F1F1]">
+//                   Last Name *
+//                 </Label>
+//                 <Input
+//                   id="lastName"
+//                   value={formData.lastName}
+//                   onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+//                   required
+//                   className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//                 />
+//               </div>
+//             </div>
+//             <div className="space-y-2">
+//               <Label htmlFor="email" className="text-[#F1F1F1]">
+//                 Email *
+//               </Label>
+//               <Input
+//                 id="email"
+//                 type="email"
+//                 value={formData.email}
+//                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+//                 required
+//                 className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//               />
+//             </div>
+//             <div className="grid grid-cols-2 gap-4">
+//               <div className="space-y-2">
+//                 <Label htmlFor="phone" className="text-[#F1F1F1]">
+//                   Phone Number *
+//                 </Label>
+//                 <Input
+//                   id="phone"
+//                   value={formData.phone}
+//                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+//                   required
+//                   className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//                 />
+//               </div>
+//               <div className="space-y-2">
+//                 <Label htmlFor="company" className="text-[#F1F1F1]">
+//                   Company
+//                 </Label>
+//                 <Input
+//                   id="company"
+//                   value={formData.company}
+//                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+//                   className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//                 />
+//               </div>
+//             </div>
+//             <div className="space-y-2">
+//               <Label htmlFor="eventName" className="text-[#F1F1F1]">
+//                 Event Name
+//               </Label>
+//               <Input
+//                 id="eventName"
+//                 value={formData.eventName}
+//                 onChange={(e) => setFormData({ ...formData, eventName: e.target.value })}
+//                 className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//               />
+//             </div>
+//             <div className="grid grid-cols-2 gap-4">
+//               <div className="space-y-2">
+//                 <Label htmlFor="eventDate" className="text-[#F1F1F1]">
+//                   Event Date
+//                 </Label>
+//                 <Input
+//                   id="eventDate"
+//                   type="date"
+//                   value={formData.eventDate}
+//                   onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
+//                   className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//                 />
+//               </div>
+//               <div className="space-y-2">
+//                 <Label htmlFor="eventType" className="text-[#F1F1F1]">
+//                   Event Type
+//                 </Label>
+//                 <Select
+//                   value={formData.eventType}
+//                   onValueChange={(value) => setFormData({ ...formData, eventType: value })}
+//                 >
+//                   <SelectTrigger className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1]">
+//                     <SelectValue placeholder="Select type" />
+//                   </SelectTrigger>
+//                   <SelectContent className="bg-[#1C1124] border-[#2A133F]">
+//                     <SelectItem value="Wedding" className="text-[#F1F1F1] focus:bg-[#2A133F]">
+//                       Wedding
+//                     </SelectItem>
+//                     <SelectItem value="Corporate" className="text-[#F1F1F1] focus:bg-[#2A133F]">
+//                       Corporate
+//                     </SelectItem>
+//                     <SelectItem value="Portrait" className="text-[#F1F1F1] focus:bg-[#2A133F]">
+//                       Portrait
+//                     </SelectItem>
+//                     <SelectItem value="Event" className="text-[#F1F1F1] focus:bg-[#2A133F]">
+//                       Event
+//                     </SelectItem>
+//                     <SelectItem value="Product" className="text-[#F1F1F1] focus:bg-[#2A133F]">
+//                       Product
+//                     </SelectItem>
+//                   </SelectContent>
+//                 </Select>
+//               </div>
+//             </div>
+//             <div className="grid grid-cols-2 gap-4">
+//               <div className="space-y-2">
+//                 <Label htmlFor="photographers" className="text-[#F1F1F1]">
+//                   Number of Photographers
+//                 </Label>
+//                 <Input
+//                   id="photographers"
+//                   type="number"
+//                   min="1"
+//                   value={formData.photographers}
+//                   onChange={(e) => setFormData({ ...formData, photographers: Number(e.target.value) })}
+//                   className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//                 />
+//               </div>
+//               <div className="space-y-2">
+//                 <Label htmlFor="budget" className="text-[#F1F1F1]">
+//                   Budget (Optional)
+//                 </Label>
+//                 <Input
+//                   id="budget"
+//                   type="number"
+//                   placeholder="0"
+//                   value={formData.budget}
+//                   onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+//                   className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//                 />
+//               </div>
+//             </div>
+//           </div>
+//           <DialogFooter>
+//             <Button
+//               type="button"
+//               variant="outline"
+//               onClick={() => onOpenChange(false)}
+//               className="border-gray-700 text-g   ray-300 hover:bg-gray-700 hover:text-white"
+//             >
+//               Cancel
+//             </Button>
+//             <Button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white">
+//               Add Client
+//             </Button>
+//           </DialogFooter>
+//         </form>
+//       </DialogContent>
+//     </Dialog>
+//   )
+// }
 
-// Edit Client Modal Component
+// // Edit Client Modal Component
 
 
-function EditClientModal({ client, open, onOpenChange, onSubmit }) {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    company: "",
-    eventName: "",
-    eventDate: "",
-    eventType: "",
-    photographers: 1,
-    budget: "",
-  })
+// function EditClientModal({ client, open, onOpenChange, onSubmit }) {
+//   const [formData, setFormData] = useState({
+//     firstName: "",
+//     lastName: "",
+//     email: "",
+//     phone: "",
+//     company: "",
+//     eventName: "",
+//     eventDate: "",
+//     eventType: "",
+//     photographers: 1,
+//     budget: "",
+//   })
 
-  useEffect(() => {
-    if (client) {
-      setFormData({
-        firstName: client.firstName,
-        lastName: client.lastName,
-        email: client.email,
-        phone: client.phone,
-        company: client.company || "",
-        eventName: client.eventName || "",
-        eventDate: client.eventDate || "",
-        eventType: client.eventType || "",
-        photographers: client.photographers || 1,
-        budget: client.budget?.toString() || "",
-      })
-    }
-  }, [client])
+//   useEffect(() => {
+//     if (client) {
+//       setFormData({
+//         firstName: client.firstName,
+//         lastName: client.lastName,
+//         email: client.email,
+//         phone: client.phone,
+//         company: client.company || "",
+//         eventName: client.eventName || "",
+//         eventDate: client.eventDate || "",
+//         eventType: client.eventType || "",
+//         photographers: client.photographers || 1,
+//         budget: client.budget?.toString() || "",
+//       })
+//     }
+//   }, [client])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    onSubmit({
-      ...client,
-      ...formData,
-      photographers: Number(formData.photographers),
-      budget: formData.budget ? Number(formData.budget) : undefined,
-    })
-  }
+//   const handleSubmit = (e) => {
+//     e.preventDefault()
+//     onSubmit({
+//       ...client,
+//       ...formData,
+//       photographers: Number(formData.photographers),
+//       budget: formData.budget ? Number(formData.budget) : undefined,
+//     })
+//   }
 
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] bg-[#1C1124] border-[#2A133F]">
-        <DialogHeader>
-          <DialogTitle className="text-[#A259FF] text-xl">Edit Client</DialogTitle>
-          <DialogDescription className="text-gray-400">Update the client details below.</DialogDescription>
-        </DialogHeader>
-        <form onSubmit={handleSubmit}>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="firstName" className="text-[#F1F1F1]">
-                  First Name *
-                </Label>
-                <Input
-                  id="firstName"
-                  value={formData.firstName}
-                  onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                  required
-                  className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="lastName" className="text-[#F1F1F1]">
-                  Last Name *
-                </Label>
-                <Input
-                  id="lastName"
-                  value={formData.lastName}
-                  onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                  required
-                  className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-                />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-[#F1F1F1]">
-                Email *
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
-                className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="text-[#F1F1F1]">
-                  Phone Number *
-                </Label>
-                <Input
-                  id="phone"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  required
-                  className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="company" className="text-[#F1F1F1]">
-                  Company
-                </Label>
-                <Input
-                  id="company"
-                  value={formData.company}
-                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-                />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="eventName" className="text-[#F1F1F1]">
-                Event Name
-              </Label>
-              <Input
-                id="eventName"
-                value={formData.eventName}
-                onChange={(e) => setFormData({ ...formData, eventName: e.target.value })}
-                className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="eventDate" className="text-[#F1F1F1]">
-                  Event Date
-                </Label>
-                <Input
-                  id="eventDate"
-                  type="date"
-                  value={formData.eventDate}
-                  onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
-                  className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="eventType" className="text-[#F1F1F1]">
-                  Event Type
-                </Label>
-                <Select
-                  value={formData.eventType}
-                  onValueChange={(value) => setFormData({ ...formData, eventType: value })}
-                >
-                  <SelectTrigger className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1]">
-                    <SelectValue placeholder="Select type" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[#1C1124] border-[#2A133F]">
-                    <SelectItem value="Wedding" className="text-[#F1F1F1] focus:bg-[#2A133F]">
-                      Wedding
-                    </SelectItem>
-                    <SelectItem value="Corporate" className="text-[#F1F1F1] focus:bg-[#2A133F]">
-                      Corporate
-                    </SelectItem>
-                    <SelectItem value="Portrait" className="text-[#F1F1F1] focus:bg-[#2A133F]">
-                      Portrait
-                    </SelectItem>
-                    <SelectItem value="Event" className="text-[#F1F1F1] focus:bg-[#2A133F]">
-                      Event
-                    </SelectItem>
-                    <SelectItem value="Product" className="text-[#F1F1F1] focus:bg-[#2A133F]">
-                      Product
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="photographers" className="text-[#F1F1F1]">
-                  Number of Photographers
-                </Label>
-                <Input
-                  id="photographers"
-                  type="number"
-                  min="1"
-                  value={formData.photographers}
-                  onChange={(e) => setFormData({ ...formData, photographers: Number(e.target.value) })}
-                  className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="budget" className="text-[#F1F1F1]">
-                  Budget (Optional)
-                </Label>
-                <Input
-                  id="budget"
-                  type="number"
-                  placeholder="0"
-                  value={formData.budget}
-                  onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                  className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
-                />
-              </div>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => onOpenChange(false)}
-              className="border-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white"
-            >
-              Cancel
-            </Button>
-            <Button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white">
-              Update Client
-            </Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
-  )
-}
+//   return (
+//     <Dialog open={open} onOpenChange={onOpenChange}>
+//       <DialogContent className="sm:max-w-[500px] bg-[#1C1124] border-[#2A133F]">
+//         <DialogHeader>
+//           <DialogTitle className="text-[#A259FF] text-xl">Edit Client</DialogTitle>
+//           <DialogDescription className="text-gray-400">Update the client details below.</DialogDescription>
+//         </DialogHeader>
+//         <form onSubmit={handleSubmit}>
+//           <div className="grid gap-4 py-4">
+//             <div className="grid grid-cols-2 gap-4">
+//               <div className="space-y-2">
+//                 <Label htmlFor="firstName" className="text-[#F1F1F1]">
+//                   First Name *
+//                 </Label>
+//                 <Input
+//                   id="firstName"
+//                   value={formData.firstName}
+//                   onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+//                   required
+//                   className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//                 />
+//               </div>
+//               <div className="space-y-2">
+//                 <Label htmlFor="lastName" className="text-[#F1F1F1]">
+//                   Last Name *
+//                 </Label>
+//                 <Input
+//                   id="lastName"
+//                   value={formData.lastName}
+//                   onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+//                   required
+//                   className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//                 />
+//               </div>
+//             </div>
+//             <div className="space-y-2">
+//               <Label htmlFor="email" className="text-[#F1F1F1]">
+//                 Email *
+//               </Label>
+//               <Input
+//                 id="email"
+//                 type="email"
+//                 value={formData.email}
+//                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+//                 required
+//                 className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//               />
+//             </div>
+//             <div className="grid grid-cols-2 gap-4">
+//               <div className="space-y-2">
+//                 <Label htmlFor="phone" className="text-[#F1F1F1]">
+//                   Phone Number *
+//                 </Label>
+//                 <Input
+//                   id="phone"
+//                   value={formData.phone}
+//                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+//                   required
+//                   className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//                 />
+//               </div>
+//               <div className="space-y-2">
+//                 <Label htmlFor="company" className="text-[#F1F1F1]">
+//                   Company
+//                 </Label>
+//                 <Input
+//                   id="company"
+//                   value={formData.company}
+//                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+//                   className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//                 />
+//               </div>
+//             </div>
+//             <div className="space-y-2">
+//               <Label htmlFor="eventName" className="text-[#F1F1F1]">
+//                 Event Name
+//               </Label>
+//               <Input
+//                 id="eventName"
+//                 value={formData.eventName}
+//                 onChange={(e) => setFormData({ ...formData, eventName: e.target.value })}
+//                 className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//               />
+//             </div>
+//             <div className="grid grid-cols-2 gap-4">
+//               <div className="space-y-2">
+//                 <Label htmlFor="eventDate" className="text-[#F1F1F1]">
+//                   Event Date
+//                 </Label>
+//                 <Input
+//                   id="eventDate"
+//                   type="date"
+//                   value={formData.eventDate}
+//                   onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
+//                   className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//                 />
+//               </div>
+//               <div className="space-y-2">
+//                 <Label htmlFor="eventType" className="text-[#F1F1F1]">
+//                   Event Type
+//                 </Label>
+//                 <Select
+//                   value={formData.eventType}
+//                   onValueChange={(value) => setFormData({ ...formData, eventType: value })}
+//                 >
+//                   <SelectTrigger className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1]">
+//                     <SelectValue placeholder="Select type" />
+//                   </SelectTrigger>
+//                   <SelectContent className="bg-[#1C1124] border-[#2A133F]">
+//                     <SelectItem value="Wedding" className="text-[#F1F1F1] focus:bg-[#2A133F]">
+//                       Wedding
+//                     </SelectItem>
+//                     <SelectItem value="Corporate" className="text-[#F1F1F1] focus:bg-[#2A133F]">
+//                       Corporate
+//                     </SelectItem>
+//                     <SelectItem value="Portrait" className="text-[#F1F1F1] focus:bg-[#2A133F]">
+//                       Portrait
+//                     </SelectItem>
+//                     <SelectItem value="Event" className="text-[#F1F1F1] focus:bg-[#2A133F]">
+//                       Event
+//                     </SelectItem>
+//                     <SelectItem value="Product" className="text-[#F1F1F1] focus:bg-[#2A133F]">
+//                       Product
+//                     </SelectItem>
+//                   </SelectContent>
+//                 </Select>
+//               </div>
+//             </div>
+//             <div className="grid grid-cols-2 gap-4">
+//               <div className="space-y-2">
+//                 <Label htmlFor="photographers" className="text-[#F1F1F1]">
+//                   Number of Photographers
+//                 </Label>
+//                 <Input
+//                   id="photographers"
+//                   type="number"
+//                   min="1"
+//                   value={formData.photographers}
+//                   onChange={(e) => setFormData({ ...formData, photographers: Number(e.target.value) })}
+//                   className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//                 />
+//               </div>
+//               <div className="space-y-2">
+//                 <Label htmlFor="budget" className="text-[#F1F1F1]">
+//                   Budget (Optional)
+//                 </Label>
+//                 <Input
+//                   id="budget"
+//                   type="number"
+//                   placeholder="0"
+//                   value={formData.budget}
+//                   onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+//                   className="bg-[#2A133F] border-[#2A133F] text-[#F1F1F1] focus:border-[#A259FF]"
+//                 />
+//               </div>
+//             </div>
+//           </div>
+//           <DialogFooter>
+//             <Button
+//               type="button"
+//               variant="outline"
+//               onClick={() => onOpenChange(false)}
+//               className="border-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white"
+//             >
+//               Cancel
+//             </Button>
+//             <Button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white">
+//               Update Client
+//             </Button>
+//           </DialogFooter>
+//         </form>
+//       </DialogContent>
+//     </Dialog>
+//   )
+// }
 
-// Delete Client Dialog Component
+// // Delete Client Dialog Component
 
-    function DeleteClientDialog({ client, open, onOpenChange, onConfirm }) {
-  return (
-    <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent className="bg-[#1C1124] border-[#2A133F]">
-        <AlertDialogHeader>
-          <AlertDialogTitle className="text-[#F1F1F1]">Delete Client</AlertDialogTitle>
-          <AlertDialogDescription className="text-gray-400">
-            Are you sure you want to delete{" "}
-            <strong className="text-[#F1F1F1]">
-              {client.firstName} {client.lastName}
-            </strong>
-            ? This action cannot be undone and will permanently remove all client data including their booking history
-            and contact information.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel className="border-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white">Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm} className="bg-red-600 hover:bg-red-700 text-white">
-            Delete Client
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  )
-}
+//     function DeleteClientDialog({ client, open, onOpenChange, onConfirm }) {
+//   return (
+//     <AlertDialog open={open} onOpenChange={onOpenChange}>
+//       <AlertDialogContent className="bg-[#1C1124] border-[#2A133F]">
+//         <AlertDialogHeader>
+//           <AlertDialogTitle className="text-[#F1F1F1]">Delete Client</AlertDialogTitle>
+//           <AlertDialogDescription className="text-gray-400">
+//             Are you sure you want to delete{" "}
+//             <strong className="text-[#F1F1F1]">
+//               {client.firstName} {client.lastName}
+//             </strong>
+//             ? This action cannot be undone and will permanently remove all client data including their booking history
+//             and contact information.
+//           </AlertDialogDescription>
+//         </AlertDialogHeader>
+//         <AlertDialogFooter>
+//           <AlertDialogCancel className="border-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white">Cancel</AlertDialogCancel>
+//           <AlertDialogAction onClick={onConfirm} className="bg-red-600 hover:bg-red-700 text-white">
+//             Delete Client
+//           </AlertDialogAction>
+//         </AlertDialogFooter>
+//       </AlertDialogContent>
+//     </AlertDialog>
+//   )
+// }
 
 // Main Client Component
 export default function ClientPage() {

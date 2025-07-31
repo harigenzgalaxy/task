@@ -53,7 +53,7 @@ export function AddClientModal({ open, onOpenChange, onSubmit }) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[500px] bg-gray-900 border-gray-800 text-white">
         <DialogHeader>
           <DialogTitle className="text-purple-600">Add New Client</DialogTitle>
           <DialogDescription>Enter the client details to add them to your database.</DialogDescription>
@@ -170,7 +170,7 @@ export function AddClientModal({ open, onOpenChange, onSubmit }) {
             </div>
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button type="button" className="hover:text-white" variant="outline" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
             <Button type="submit" className="bg-purple-600 hover:bg-purple-700">

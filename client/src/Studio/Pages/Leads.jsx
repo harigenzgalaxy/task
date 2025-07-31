@@ -408,6 +408,27 @@ export function LeadSpacePage() {
                       </Badge>
                     ))}
                   </div>
+
+                </div>
+
+                <div className="pt-4 border-t border-gray-700">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600 hover:text-white"
+                    onClick={() => {
+                      setSearchTerm("")
+                      setStatusFilter("all")
+                      setSpecialtyFilter("all")
+                      setSourceFilter("all")
+                      setShowArchived(false)
+                      setSelectedTags([])
+                      setSortField("created")
+                      setSortDirection("desc")
+                    }}
+                  >
+                    Clear All Filters
+                  </Button>
                 </div>
               </div>
             </DropdownMenuContent>

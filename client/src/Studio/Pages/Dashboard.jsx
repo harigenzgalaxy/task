@@ -264,18 +264,7 @@ export default function Dashboard() {
               {showProfileMenu && (
                 <div className="absolute right-0 top-full mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-lg z-[60] overflow-hidden transition-all duration-200 ease-in-out opacity-100 scale-100">
                   <ul className="divide-y divide-gray-700">
-                    <li 
-                      onClick={() => {
-                        // Navigate to profile page
-                        setShowProfileMenu(false)
-                      }}
-                      className="p-3 text-gray-200 hover:bg-gray-800 cursor-pointer">Profile</li>
-                    <li 
-                      onClick={() => {
-                        // Navigate to settings page
-                        setShowProfileMenu(false)
-                      }}
-                      className="p-3 text-gray-200 hover:bg-gray-800 cursor-pointer">Settings</li>
+
                     <li className="p-3 text-red-400 hover:bg-gray-800 cursor-pointer">Logout</li>
                   </ul>
                 </div>
