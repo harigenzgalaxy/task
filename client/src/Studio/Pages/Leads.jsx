@@ -1,4 +1,4 @@
-"use client"
+
 
 import * as React from "react"
 import { motion } from "framer-motion"
@@ -11,6 +11,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Switch } from "@/components/ui/switch"
+import { Label } from "@/components/ui/Label"
+import { Textarea } from "@/components/ui/textarea"
+import { FadeInUp } from "@/components/ui/FadeInUp"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 import {
   Search,
   Filter,
@@ -38,6 +49,7 @@ import {
   Archive,
   Tag,
 } from "lucide-react"
+import { LeadTableCard } from "../components/Leads/LeadTableCard"
 
 // Sample data with updated structure
 const leadsData = [
@@ -277,20 +289,22 @@ export function LeadSpacePage() {
   return (
     <div className="p-4 md:p-6 space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between relative">
-        <div className="space-y-1">
-          <h1 className="text-2xl md:text-3xl font-bold text-purple-400">
-            Leads
-          </h1>
-          <p className="text-gray-400">
-            Manage and track your client inquiries
-          </p>
-        </div>
-        
-        <div className="flex items-center gap-3">
+      <FadeInUp>
+        <div className="flex items-center justify-between relative">
+          <div className="space-y-1">
+            <h1 className="text-2xl md:text-3xl font-bold text-purple-400">
+              Leads
+            </h1>
+            <p className="text-gray-400">
+              Manage and track your client inquiries
+            </p>
+          </div>
+          
+          <div className="flex items-center gap-3">
 
+          </div>
         </div>
-      </div>
+      </FadeInUp>
 
       {/* Search and Actions */}
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
@@ -401,8 +415,8 @@ export function LeadSpacePage() {
         </div>
       </div>
 
-      {/* Table */}
-      <Card className="bg-gray-900 border border-gray-700 shadow-sm">
+      {/* Desktop Table */}
+      <Card className="hidden md:block bg-gray-900 border border-gray-700 shadow-sm">
         <CardContent className="p-0 ">
           <div className="overflow-x-auto">
             <table className="w-full bg-gray-900">
@@ -550,6 +564,26 @@ export function LeadSpacePage() {
           )}
         </CardContent>
       </Card>
+
+      {/* Mobile Card Layout */}
+      <div className="block md:hidden space-y-4">
+        {filteredAndSortedLeads.map((lead) => (
+          <LeadTableCard 
+            key={lead.id} 
+            lead={lead} 
+            onStatusChange={handleStatusChange}
+            formatDate={formatDate}
+          />
+        ))}
+        
+        {filteredAndSortedLeads.length === 0 && (
+          <div className="text-center py-12">
+            <Users className="h-12 w-12 text-gray-600 mx-auto mb-4" />
+            <p className="text-gray-400 text-lg">No leads found matching your criteria.</p>
+            <p className="text-gray-500 text-sm mt-2">Try adjusting your search or filter settings.</p>
+          </div>
+        )}
+      </div>
     </div>
   )
-}
+} 

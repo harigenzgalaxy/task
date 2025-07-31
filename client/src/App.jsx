@@ -9,14 +9,14 @@ import HomePage from './Photographer/Index'
 import Sidebar from './Studio/components/Sidebar'
 import ProfileView from './Photographer/components/ProfileView'
 import EventDetails from './Photographer/components/ViewEvent'
-import {ViewEvent} from './Studio/components/ViewEvent'
+import {ViewEvent} from './Studio/Pages/ViewEvent'
 import { Home } from 'lucide-react'
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path='/studio' element={<Studio />} />
+        <Route path='/studio/:id' element={<Studio />} />
         <Route path='/photographer' element={<HomePage />} />
         <Route path='/printer' element={<Printer />} />
         <Route path='/customer' element={<Customer />} />

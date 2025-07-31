@@ -1,7 +1,7 @@
 
 
 import { useState } from "react"
-import { Search, Plus, Edit, Trash2, MoreHorizontal } from "lucide-react"
+import { Search, Plus, Edit, Trash2, MoreHorizontal, X } from "lucide-react"
 // import { useToast } from "@/components/ui/use-toast"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/Input"
@@ -10,6 +10,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
+import { FadeInUp } from "@/components/ui/FadeInUp"
+import { ClientTableCard } from "../components/Clients/ClientTableCard"
 
 import {
   Dialog,
@@ -18,6 +20,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogClose
 } from "@/components/ui/dialog"
 import {
   AlertDialog,
@@ -120,11 +123,20 @@ function AddClientModal({ open, onOpenChange, onSubmit }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px] bg-[#1C1124] border-[#2A133F]">
+      <DialogClose asChild>
+      <button
+        className="absolute right-4 top-4 text-gray-400 hover:text-white transition"
+        aria-label="Close"
+      >
+        <X className="h-5 w-5" />
+      </button>
+    </DialogClose>
         <DialogHeader>
           <DialogTitle className="text-[#A259FF] text-xl">Add New Client</DialogTitle>
           <DialogDescription className="text-gray-400">
             Enter the client details to add them to your database.
           </DialogDescription>
+    
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
@@ -281,11 +293,11 @@ function AddClientModal({ open, onOpenChange, onSubmit }) {
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
-              className="border-[#2A133F] text-[#F1F1F1] hover:bg-[#2A133F]"
+              className="border-gray-700 text-g   ray-300 hover:bg-gray-700 hover:text-white"
             >
               Cancel
             </Button>
-            <Button type="submit" className="bg-[#A259FF] hover:bg-[#8B47E6] text-white">
+            <Button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white">
               Add Client
             </Button>
           </DialogFooter>
@@ -501,11 +513,11 @@ function EditClientModal({ client, open, onOpenChange, onSubmit }) {
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
-              className="border-[#2A133F] text-[#F1F1F1] hover:bg-[#2A133F]"
+              className="border-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white"
             >
               Cancel
             </Button>
-            <Button type="submit" className="bg-[#A259FF] hover:bg-[#8B47E6] text-white">
+            <Button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white">
               Update Client
             </Button>
           </DialogFooter>
@@ -533,7 +545,7 @@ function EditClientModal({ client, open, onOpenChange, onSubmit }) {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="border-[#2A133F] text-[#F1F1F1] hover:bg-[#2A133F]">Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="border-gray-700 text-gray-300 hover:bg-gray-700 hover:text-white">Cancel</AlertDialogCancel>
           <AlertDialogAction onClick={onConfirm} className="bg-red-600 hover:bg-red-700 text-white">
             Delete Client
           </AlertDialogAction>
@@ -601,24 +613,22 @@ export default function ClientPage() {
   return (
     <div className="p-4 md:p-6 space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between relative">
-        <div className="space-y-1">
-          <h1 className="text-2xl md:text-3xl font-bold text-purple-400">
-            Clients
-          </h1>
-          <p className="text-gray-400">
-            Manage your client database and relationships
-          </p>
-        </div>
-        
-        <div className="flex items-center gap-3">
-          <Badge variant="secondary" className="bg-gray-800 text-gray-300">
-            {filteredClients.length} total
-          </Badge>
-        </div>
-      </div>
+      <FadeInUp>
+        <div className="flex items-center justify-between relative">
+          <div className="space-y-1">
+            <h1 className="text-2xl md:text-3xl font-bold text-purple-400">
+              Clients
+            </h1>
+            <p className="text-gray-400">
+              Manage your client database and relationships
+            </p>
+          </div>
+          
 
-      {/* Search and Actions */}
+        </div>
+      </FadeInUp>
+
+     
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
         <div className="relative max-w-md w-full">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
@@ -641,8 +651,8 @@ export default function ClientPage() {
         </div>
       </div>
 
-      {/* Table */}
-      <div className="rounded-lg border border-gray-700 bg-gray-900">
+      {/* Desktop Table */}
+      <div className="hidden md:block rounded-lg border border-gray-700 bg-gray-900">
         <Table>
           <TableHeader>
             <TableRow className="border-gray-700 hover:bg-gray-800/50">
@@ -728,6 +738,26 @@ export default function ClientPage() {
             ))}
           </TableBody>
         </Table>
+      </div>
+
+      {/* Mobile Card Layout */}
+      <div className="block md:hidden space-y-4">
+        {filteredClients.map((client) => (
+          <ClientTableCard 
+            key={client.id} 
+            client={client} 
+            onEdit={setEditingClient}
+            onDelete={setDeletingClient}
+            getInitials={getInitials}
+          />
+        ))}
+        
+        {filteredClients.length === 0 && (
+          <div className="text-center py-12">
+            <div className="text-gray-400 text-lg">No clients found matching your criteria.</div>
+            <div className="text-gray-500 text-sm mt-2">Try adjusting your search terms.</div>
+          </div>
+        )}
       </div>
 
       <AddClientModal open={isAddModalOpen} onOpenChange={setIsAddModalOpen} onSubmit={handleAddClient} />

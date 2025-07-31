@@ -29,6 +29,7 @@
     "@schedule-x/theme-default": "^2.36.0",
     "@schedule-x/theme-shadcn": "^2.36.0",
     "@tailwindcss/vite": "^4.1.11",
+    "axios": "^1.10.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",

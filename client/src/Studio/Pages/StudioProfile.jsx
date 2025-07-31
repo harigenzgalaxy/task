@@ -30,6 +30,7 @@ import { Label } from "../../components/ui/Label"
 import { Textarea } from "../../components/ui/textarea"
 import { Switch } from "../../components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select"
+import axios from "axios"
 
 function Modal({ open, onClose, children }) {
   if (!open) return null;
@@ -43,25 +44,43 @@ function Modal({ open, onClose, children }) {
   );
 }
 
-export default function StudioProfile({ onUnsavedChanges }) {
+export default function StudioProfile({ onUnsavedChanges, data }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState({
-    studioName: "Purple Lens Studio",
+    studioName: data?.studioName || "Purple Lens Studio",
     studioType: "brand",
-    address: "123 Main Street, Downtown, City, State, 123456",
-    contactNumber: "+1 (555) 987-6543",
-    alternateEmail: "studio.alt@email.com",
-    email: "contact@purplelens.com",
+    address: data?.studioAddress || "123 Main Street, Downtown, City, State, 123456",
+    contactNumber: data?.studioContactNumber || "+1 (555) 987-6543",
+    alternateEmail: data?.alternateEmail || "studio.alt@email.com",
+    email: data?.studioEmail || "contact@purplelens.com",
     instagram: "@purplelensstudio",
     facebook: "",
     linkedin: "",
     youtube: "",
     bookingStatus: true,
     bookingStatusMessage: "Now open for 2024 bookings!",
-    operatingHours: "10:00 AM – 7:00 PM",
+    operatingHours: data?.studioOperatingHours || "10:00 AM – 7:00 PM",
     services: ["Wedding", "Editing", "Drone", "Printing", "Studio Rental"],
   })
   const [originalData, setOriginalData] = useState({ ...formData })
+
+  // Update formData when data prop changes
+  useEffect(() => {
+    if (data) {
+      const updatedFormData = {
+        ...formData,
+        studioName: data.studioName || formData.studioName,
+        address: data.studioAddress || formData.address,
+        contactNumber: data.studioContactNumber || formData.contactNumber,
+        alternateEmail: data.alternateEmail || formData.alternateEmail,
+        email: data.studioEmail || formData.email,
+        operatingHours: data.studioOperatingHours || formData.operatingHours,
+      };
+      setFormData(updatedFormData);
+      setOriginalData(updatedFormData);
+    }
+  }, [data]);
 
   useEffect(() => {
     const hasChanges = JSON.stringify(formData) !== JSON.stringify(originalData)
@@ -144,10 +163,52 @@ export default function StudioProfile({ onUnsavedChanges }) {
     setIsEditing(true)
     setOriginalData({ ...formData })
   }
-  const handleSaveChanges = () => {
-    setOriginalData({ ...formData })
-    setIsEditing(false)
-    onUnsavedChanges?.(false)
+  const handleSaveChanges = async () => {
+    try {
+      setIsSaving(true)
+      
+      // Get the studio owner ID from the data prop or URL params
+      const studioOwnerId = data?.id || window.location.pathname.split('/').pop()
+      
+      // Prepare the data to send to backend
+      const updateData = {
+        studioName: formData.studioName,
+        studioAddress: formData.address,
+        studioContactNumber: formData.contactNumber,
+        studioEmail: formData.email,
+        alternateEmail: formData.alternateEmail,
+        studioOperatingHours: formData.operatingHours,
+        studioType: formData.studioType,
+        socialLinks: {
+          instagram: formData.instagram,
+          facebook: formData.facebook,
+          linkedin: formData.linkedin,
+          youtube: formData.youtube
+        },
+        services: formData.services,
+        bookingStatus: formData.bookingStatus,
+        bookingStatusMessage: formData.bookingStatusMessage
+      }
+
+      // Make API call to update studio owner
+      const response = await axios.put(`http://localhost:8000/api/owner/edit/${studioOwnerId}`, updateData)
+      
+      if (response.status === 200) {
+        // Update local state
+        setOriginalData({ ...formData })
+        setIsEditing(false)
+        onUnsavedChanges?.(false)
+        
+        // Show success message (you can add a toast notification here)
+        console.log('Studio profile updated successfully')
+      }
+    } catch (error) {
+      console.error('Error updating studio profile:', error)
+      // Show error message (you can add a toast notification here)
+      alert('Failed to update studio profile. Please try again.')
+    } finally {
+      setIsSaving(false)
+    }
   }
   const handleDiscardChanges = () => {
     setFormData({ ...originalData })
@@ -197,12 +258,17 @@ export default function StudioProfile({ onUnsavedChanges }) {
             </Button>
           ) : (
             <>
-              <Button onClick={handleSaveChanges} className="bg-green-600 hover:bg-green-700 shadow-lg text-white font-semibold px-6 py-2 rounded-lg text-base">
-                Save Changes
+              <Button 
+                onClick={handleSaveChanges} 
+                disabled={isSaving}
+                className="bg-green-600 hover:bg-green-700 shadow-lg text-white font-semibold px-6 py-2 rounded-lg text-base disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSaving ? 'Saving...' : 'Save Changes'}
               </Button>
               <Button
                 onClick={handleDiscardChanges}
-                className="bg-red-600 hover:bg-red-500 border-none shadow-lg text-white font-semibold px-6 py-2 rounded-lg text-base transition-colors"
+                disabled={isSaving}
+                className="bg-red-600 hover:bg-red-500 border-none shadow-lg text-white font-semibold px-6 py-2 rounded-lg text-base transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ border: 'none' }}
               >
                 Discard Changes

@@ -225,8 +225,8 @@ export default function Profile({ onUnsavedChanges }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column */}
+        <div className="flex flex-col lg:grid lg:grid-cols-3 gap-6">
+          {/* Left Column - Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Personal Information */}
             <Card className="bg-gray-900 border-gray-700">
@@ -686,7 +686,7 @@ export default function Profile({ onUnsavedChanges }) {
             </Card>
           </div>
 
-          {/* Right Column */}
+          {/* Right Column - Sidebar Content */}
           <div className="space-y-6">
             {/* Profile Picture */}
             <Card className="bg-gray-900 border-gray-700">
